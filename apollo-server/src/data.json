@@ -1,0 +1,45 @@
+{
+  "bikes": [
+    {
+      "id": "1",
+      "brand": "Trek",
+      "model": "Domane SL6",
+      "nickname": "Speedster"
+    },
+    {
+      "id": "2",
+      "brand": "Specialized",
+      "model": "Roubaix",
+      "nickname": "Comfort King"
+    },
+    {
+      "id": "3",
+      "brand": "Cannondale",
+      "model": "Synapse Carbon",
+      "nickname": "Smooth Operator"
+    }
+  ],
+  "rides": [
+    {
+      "id": "1",
+      "bikeId": "1",
+      "distance": 45.3,
+      "location": "Central Park",
+      "type": "ROAD"
+    },
+    {
+      "id": "2",
+      "bikeId": "2",
+      "distance": 30.7,
+      "location": "Griffith Park",
+      "type": "ROAD"
+    },
+    {
+      "id": "3",
+      "bikeId": "3",
+      "distance": 25.4,
+      "location": "Santa Monica Mountains",
+      "type": "MOUNTAIN"
+    }
+  ]
+}

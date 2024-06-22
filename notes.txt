@@ -1,0 +1,12 @@
+JavaScript client:
+node main.js
+
+Typescript client:
+tsx main.ts
+
+Codegen:
+
+npm run codegen
+
+Quick demo of GraphQL 
+https://studio.apollographql.com/sandbox/explorer
