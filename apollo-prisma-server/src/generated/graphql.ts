@@ -9,7 +9,7 @@ export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' |
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: number; output: number; }
+  ID: { input: string; output: string; }
   String: { input: string; output: string; }
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
@@ -22,7 +22,7 @@ export type AddBikeInput = {
 };
 
 export type AddRideInput = {
-  bikeId: Scalars['ID']['input'];
+  bikeId: Scalars['Int']['input'];
   distance: Scalars['Float']['input'];
   location: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -31,7 +31,7 @@ export type AddRideInput = {
 export type Bike = {
   __typename?: 'Bike';
   brand: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
+  id: Scalars['Int']['output'];
   model: Scalars['String']['output'];
   rides: Array<Ride>;
 };
@@ -54,15 +54,27 @@ export type MutationAddRideArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  bike?: Maybe<Bike>;
   bikes: Array<Bike>;
+  ride?: Maybe<Ride>;
   rides: Array<Ride>;
+};
+
+
+export type QueryBikeArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type QueryRideArgs = {
+  id: Scalars['Int']['input'];
 };
 
 export type Ride = {
   __typename?: 'Ride';
-  bikeId: Scalars['ID']['output'];
+  bikeId: Scalars['Int']['output'];
   distance: Scalars['Float']['output'];
-  id: Scalars['ID']['output'];
+  id: Scalars['Int']['output'];
   location: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
@@ -143,7 +155,7 @@ export type ResolversTypes = {
   Bike: ResolverTypeWrapper<Bike>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
-  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   Ride: ResolverTypeWrapper<Ride>;
@@ -157,7 +169,7 @@ export type ResolversParentTypes = {
   Bike: Bike;
   Boolean: Scalars['Boolean']['output'];
   Float: Scalars['Float']['output'];
-  ID: Scalars['ID']['output'];
+  Int: Scalars['Int']['output'];
   Mutation: {};
   Query: {};
   Ride: Ride;
@@ -166,7 +178,7 @@ export type ResolversParentTypes = {
 
 export type BikeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bike'] = ResolversParentTypes['Bike']> = {
   brand?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   model?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   rides?: Resolver<Array<ResolversTypes['Ride']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -178,14 +190,16 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  bike?: Resolver<Maybe<ResolversTypes['Bike']>, ParentType, ContextType, RequireFields<QueryBikeArgs, 'id'>>;
   bikes?: Resolver<Array<ResolversTypes['Bike']>, ParentType, ContextType>;
+  ride?: Resolver<Maybe<ResolversTypes['Ride']>, ParentType, ContextType, RequireFields<QueryRideArgs, 'id'>>;
   rides?: Resolver<Array<ResolversTypes['Ride']>, ParentType, ContextType>;
 };
 
 export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
-  bikeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  bikeId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   distance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   location?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

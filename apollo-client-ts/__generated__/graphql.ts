@@ -22,7 +22,7 @@ export type AddBikeInput = {
 };
 
 export type AddRideInput = {
-  bikeId: Scalars['ID']['input'];
+  bikeId: Scalars['Int']['input'];
   distance: Scalars['Float']['input'];
   location: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -31,7 +31,7 @@ export type AddRideInput = {
 export type Bike = {
   __typename?: 'Bike';
   brand: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
+  id: Scalars['Int']['output'];
   model: Scalars['String']['output'];
   rides: Array<Ride>;
 };
@@ -54,15 +54,27 @@ export type MutationAddRideArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  bike?: Maybe<Bike>;
   bikes: Array<Bike>;
+  ride?: Maybe<Ride>;
   rides: Array<Ride>;
+};
+
+
+export type QueryBikeArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type QueryRideArgs = {
+  id: Scalars['Int']['input'];
 };
 
 export type Ride = {
   __typename?: 'Ride';
-  bikeId: Scalars['ID']['output'];
+  bikeId: Scalars['Int']['output'];
   distance: Scalars['Float']['output'];
-  id: Scalars['ID']['output'];
+  id: Scalars['Int']['output'];
   location: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
@@ -72,5 +84,13 @@ export type GetBikesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetBikesQuery = { __typename?: 'Query', bikes: Array<{ __typename?: 'Bike', brand: string, model: string, rides: Array<{ __typename?: 'Ride', name: string, distance: number }> }> };
 
+export type GetBikeByIdQueryVariables = Exact<{
+  id: Scalars['Int']['input'];
+}>;
+
+
+export type GetBikeByIdQuery = { __typename?: 'Query', bike?: { __typename?: 'Bike', brand: string, model: string, rides: Array<{ __typename?: 'Ride', name: string, distance: number }> } | null };
+
 
 export const GetBikesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBikes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bikes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brand"}},{"kind":"Field","name":{"kind":"Name","value":"model"}},{"kind":"Field","name":{"kind":"Name","value":"rides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}}]}}]}}]}}]} as unknown as DocumentNode<GetBikesQuery, GetBikesQueryVariables>;
+export const GetBikeByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBikeById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bike"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brand"}},{"kind":"Field","name":{"kind":"Name","value":"model"}},{"kind":"Field","name":{"kind":"Name","value":"rides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}}]}}]}}]}}]} as unknown as DocumentNode<GetBikeByIdQuery, GetBikeByIdQueryVariables>;

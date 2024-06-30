@@ -8,8 +8,19 @@ export const resolvers: Resolvers = {
     bikes: async () => {
       return prisma.bike.findMany({ include: { rides: true } });
     },
+    bike: async (_, { id }) => {
+      return prisma.bike.findUnique({
+        where: { id: id },
+        include: { rides: true },
+      });
+    },
     rides: async () => {
       return prisma.ride.findMany();
+    },
+    ride: async (_, { id }) => {
+      return prisma.ride.findUnique({
+        where: { id: id },
+      });
     },
   },
   Mutation: {
@@ -21,10 +32,7 @@ export const resolvers: Resolvers = {
     },
     addRide: async (_, { input }) => {
       return prisma.ride.create({
-        data: {
-          ...input,
-          bikeId: Number(input.bikeId),
-        },
+        data: input,
       });
     },
   },

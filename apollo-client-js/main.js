@@ -26,3 +26,25 @@ const { data } = await client.query({
 });
 
 prettyPrint(data);
+
+// find specific bike
+const GET_BIKE_BY_ID = gql(`
+  query {
+    bike(id: $id) {
+      brand
+      model
+      rides {
+        name
+        distance
+      }
+    }
+  }
+`);
+
+const { data: bikeData } = await client.query({
+  query: GET_BIKE_BY_ID,
+  variables: { id: 1 },
+});
+
+prettyPrint(bikeData);
+

@@ -5,7 +5,9 @@ schema {
 
 type Query {
   bikes: [Bike!]!
+  bike(id: Int!): Bike
   rides: [Ride!]!
+  ride(id: Int!): Ride
 }
 
 type Mutation {
@@ -14,15 +16,15 @@ type Mutation {
 }
 
 type Bike {
-  id: ID!
+  id: Int!
   brand: String!
   model: String!
   rides: [Ride!]!
 }
 
 type Ride {
-  id: ID!
-  bikeId: ID!
+  id: Int!
+  bikeId: Int!
   name: String!
   distance: Float!
   location: String!
@@ -34,7 +36,7 @@ input AddBikeInput {
 }
 
 input AddRideInput {
-  bikeId: ID!
+  bikeId: Int!
   name: String!
   distance: Float!
   location: String!
