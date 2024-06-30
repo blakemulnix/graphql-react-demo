@@ -1,7 +1,7 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  schema: "../apollo-server/src/schema.graphql",
+  schema: "../apollo-prisma-server/src/schema.graphql",
   documents: ["./**/*.{ts,tsx}"],
   generates: {
     "./__generated__/": {
@@ -12,7 +12,7 @@ const config: CodegenConfig = {
       },
     },
   },
-  ignoreNoDocuments: true
+  // ignoreNoDocuments: true
 };
 
 export default config;

@@ -10,3 +10,9 @@ npm run codegen
 
 Quick demo of GraphQL 
 https://studio.apollographql.com/sandbox/explorer
+
+
+Apollo Server / Prisma updates:
+npx prisma migrate dev --name init
+npx prisma generate
+npm run codegen

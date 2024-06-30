@@ -19,13 +19,13 @@ export type Scalars = {
 export type AddBikeInput = {
   brand: Scalars['String']['input'];
   model: Scalars['String']['input'];
-  nickname?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AddRideInput = {
   bikeId: Scalars['ID']['input'];
   distance: Scalars['Float']['input'];
   location: Scalars['String']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type Bike = {
@@ -33,17 +33,13 @@ export type Bike = {
   brand: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   model: Scalars['String']['output'];
-  nickname?: Maybe<Scalars['String']['output']>;
+  rides: Array<Ride>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   addBike: Bike;
   addRide: Ride;
-  removeBike: Scalars['Boolean']['output'];
-  removeRide: Scalars['Boolean']['output'];
-  updateBike: Bike;
-  updateRide: Ride;
 };
 
 
@@ -56,28 +52,6 @@ export type MutationAddRideArgs = {
   input: AddRideInput;
 };
 
-
-export type MutationRemoveBikeArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationRemoveRideArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationUpdateBikeArgs = {
-  id: Scalars['ID']['input'];
-  input: UpdateBikeInput;
-};
-
-
-export type MutationUpdateRideArgs = {
-  id: Scalars['ID']['input'];
-  input: UpdateRideInput;
-};
-
 export type Query = {
   __typename?: 'Query';
   bikes: Array<Bike>;
@@ -86,23 +60,11 @@ export type Query = {
 
 export type Ride = {
   __typename?: 'Ride';
-  bike: Bike;
+  bikeId: Scalars['ID']['output'];
   distance: Scalars['Float']['output'];
   id: Scalars['ID']['output'];
   location: Scalars['String']['output'];
-};
-
-export type UpdateBikeInput = {
-  bikeId: Scalars['ID']['input'];
-  brand?: InputMaybe<Scalars['String']['input']>;
-  model?: InputMaybe<Scalars['String']['input']>;
-  nickname?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UpdateRideInput = {
-  bikeId: Scalars['ID']['input'];
-  distance?: InputMaybe<Scalars['Float']['input']>;
-  location?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['output'];
 };
 
 
@@ -186,8 +148,6 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Ride: ResolverTypeWrapper<Ride>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  UpdateBikeInput: UpdateBikeInput;
-  UpdateRideInput: UpdateRideInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -202,25 +162,19 @@ export type ResolversParentTypes = {
   Query: {};
   Ride: Ride;
   String: Scalars['String']['output'];
-  UpdateBikeInput: UpdateBikeInput;
-  UpdateRideInput: UpdateRideInput;
 };
 
 export type BikeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Bike'] = ResolversParentTypes['Bike']> = {
   brand?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   model?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  nickname?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  rides?: Resolver<Array<ResolversTypes['Ride']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addBike?: Resolver<ResolversTypes['Bike'], ParentType, ContextType, RequireFields<MutationAddBikeArgs, 'input'>>;
   addRide?: Resolver<ResolversTypes['Ride'], ParentType, ContextType, RequireFields<MutationAddRideArgs, 'input'>>;
-  removeBike?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemoveBikeArgs, 'id'>>;
-  removeRide?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemoveRideArgs, 'id'>>;
-  updateBike?: Resolver<ResolversTypes['Bike'], ParentType, ContextType, RequireFields<MutationUpdateBikeArgs, 'id' | 'input'>>;
-  updateRide?: Resolver<ResolversTypes['Ride'], ParentType, ContextType, RequireFields<MutationUpdateRideArgs, 'id' | 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -229,10 +183,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type RideResolvers<ContextType = any, ParentType extends ResolversParentTypes['Ride'] = ResolversParentTypes['Ride']> = {
-  bike?: Resolver<ResolversTypes['Bike'], ParentType, ContextType>;
+  bikeId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   distance?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   location?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

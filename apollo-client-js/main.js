@@ -1,6 +1,6 @@
-import { ApolloClient, gql } from '@apollo/client/core/index.js';
-import { HttpLink } from '@apollo/client/link/http/index.js';
-import { InMemoryCache } from '@apollo/client/cache/index.js';
+import { ApolloClient, gql } from "@apollo/client/core/index.js";
+import { HttpLink } from "@apollo/client/link/http/index.js";
+import { InMemoryCache } from "@apollo/client/cache/index.js";
 import { prettyPrint } from "./utils.js";
 
 const client = new ApolloClient({
@@ -8,14 +8,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const getCharacters = gql(`
+const GET_BIKES = gql(`
   query {
-    getMessage
+    bikes {
+      brand
+      model
+      rides {
+        name
+        distance
+      }
+    }
   }
 `);
 
 const { data } = await client.query({
-  query: getCharacters,
+  query: GET_BIKES,
 });
 
-prettyPrint(data)
+prettyPrint(data);

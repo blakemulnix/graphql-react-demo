@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -15,11 +16,40 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type AddBikeInput = {
+  brand: Scalars['String']['input'];
+  model: Scalars['String']['input'];
+};
+
+export type AddRideInput = {
+  bikeId: Scalars['ID']['input'];
+  distance: Scalars['Float']['input'];
+  location: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+};
+
 export type Bike = {
   __typename?: 'Bike';
   brand: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   model: Scalars['String']['output'];
-  nickname?: Maybe<Scalars['String']['output']>;
+  rides: Array<Ride>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addBike: Bike;
+  addRide: Ride;
+};
+
+
+export type MutationAddBikeArgs = {
+  input: AddBikeInput;
+};
+
+
+export type MutationAddRideArgs = {
+  input: AddRideInput;
 };
 
 export type Query = {
@@ -30,14 +60,17 @@ export type Query = {
 
 export type Ride = {
   __typename?: 'Ride';
-  bike: Bike;
+  bikeId: Scalars['ID']['output'];
   distance: Scalars['Float']['output'];
+  id: Scalars['ID']['output'];
   location: Scalars['String']['output'];
-  type?: Maybe<RideType>;
+  name: Scalars['String']['output'];
 };
 
-export enum RideType {
-  Gravel = 'GRAVEL',
-  Mountain = 'MOUNTAIN',
-  Road = 'ROAD'
-}
+export type GetBikesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetBikesQuery = { __typename?: 'Query', bikes: Array<{ __typename?: 'Bike', brand: string, model: string, rides: Array<{ __typename?: 'Ride', name: string, distance: number }> }> };
+
+
+export const GetBikesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetBikes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bikes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"brand"}},{"kind":"Field","name":{"kind":"Name","value":"model"}},{"kind":"Field","name":{"kind":"Name","value":"rides"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"distance"}}]}}]}}]}}]} as unknown as DocumentNode<GetBikesQuery, GetBikesQueryVariables>;
